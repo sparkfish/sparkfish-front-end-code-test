@@ -50,14 +50,6 @@
  * UI elements you can create for extra credit. Please note they
  * are NOT required.
  *
- * Requirements:
- *    * User can type in serch box and click enter to search for new results
- *    * User can easily read the results
- *    * The UI is clean and modern.
- *    * The UI makes sense and is intiutive.
- *    * UI has a loader
- *    * UI prevents searching without input
- *
  * This challenge really focuses on your front-end skills. But, we
  * do want to make sure you can work with API's with relative ease.
  *

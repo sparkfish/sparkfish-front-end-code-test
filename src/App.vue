@@ -18,20 +18,20 @@
 
   <main>
     <div id="searchBox">
-      <input type="text" name="searchBoxQuery" id="searchBoxQuery" />
+      <input type="text" name="searchBoxQuery" id="searchBoxQuery" v-model="searchQuery" v-on:change="search()"/>
       <!-- // Style the searchbox -->
     </div>
     <div id="searchResults">
       <ul>
-        <li>Search Query: query</li>
-        <li>Result Count: results</li>
+        <li>Search Query: {{searchQuery}}</li>
+        <li>Result Count: {{searchResults.total_results}}</li>
       </ul>
       <!-- // Add your search results code here -->
       <div>
         <span>Result Advice</span>
-        <details>
-          <label>Result Publish Date: </label>
-          <span>Result Date</span>
+        <details v-for="slip in searchResults.slips">
+          <label>Result Publish Date:</label>
+          <span>{{slip.date}}</span>
         </details>
       </div>
     </div>
@@ -64,14 +64,11 @@ import { ref } from "vue";
 const APIBaseUrl = "https://api.adviceslip.com/advice/";
 
 export default {
-  setup() {
-    let searchQuery = ref("");
-    let searchResults = ref({});
-
+  data: function () {
     return {
-      searchQuery,
-      searchResults,
-    };
+      searchQuery: "People",
+      searchResults: {},
+    }
   },
   mounted() {
     this.searchQuery = "People";
@@ -79,8 +76,11 @@ export default {
   },
   methods: {
     search() {
-      fetch(APIBaseUrl + `saerch/${this.searchQuery}`).then(
-        (result) => (this.searchResults = result)
+      fetch(APIBaseUrl + `search/${this.searchQuery}`)
+      .then(response => response.json()).then(
+        (result) => (
+          this.searchResults = result
+        )
       );
     },
   },
